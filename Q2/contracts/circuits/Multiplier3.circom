@@ -1,7 +1,5 @@
 pragma circom 2.0.0;
 
-// [assignment] Modify the circuit below to perform a multiplication of three signals
-
 template Multiplier3 () {  
 
    // Declaration of signals.  
@@ -10,8 +8,11 @@ template Multiplier3 () {
    signal input c;
    signal output d;  
 
+   signal mult1;
+   
    // Constraints.  
-   d <== a * b * c;  
+   mult1 <== a * b;
+   d <== mult1 * c;
 }
 
 component main = Multiplier3();

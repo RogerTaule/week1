@@ -18,15 +18,28 @@ describe("SystemOfEquations circuit test", function () {
         const INPUT = {
             "x": ["15","17","19"],
             "A": [["1","1","1"],["1","2","3"],["2",Fr.e(-1),"1"]],
+            "b": ["51", "106", "32"],
+        }
+
+        const witness = await circuit.calculateWitness(INPUT, true);
+
+        assert(Fr.eq(Fr.e(witness[0]),Fr.e(1)));
+        assert(Fr.eq(Fr.e(witness[1]),Fr.e(1)));
+    });
+
+    it("Bonus question failing circuit", async () => {
+        const circuit = await wasm_tester("contracts/bonus/SystemOfEquations.circom");
+
+        const INPUT = {
+            "x": ["15","16","19"],
+            "A": [["1","1","1"],["1","2","3"],["2",Fr.e(-1),"1"]],
             "b": ["51", "106", "32"]
         }
 
         const witness = await circuit.calculateWitness(INPUT, true);
 
-        //console.log(witness);
-
         assert(Fr.eq(Fr.e(witness[0]),Fr.e(1)));
-        assert(Fr.eq(Fr.e(witness[1]),Fr.e(1)));
+        assert(Fr.eq(Fr.e(witness[1]),Fr.e(0)));
     });
 });
 
